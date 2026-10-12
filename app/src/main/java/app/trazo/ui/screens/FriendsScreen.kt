@@ -315,7 +315,7 @@ private fun FriendRow(f: Friend, live: app.trazo.data.remote.LiveLocationDto?, n
 private fun GroupDialog(graph: AppGraph, g: GroupInfo, onDismiss: () -> Unit) {
     val ctx = LocalContext.current
     val runner = rememberRunner()
-    val me = graph.backend.userIdOrNull()
+    val me = rememberMyId(graph)
     val mine = g.members.firstOrNull { it.userId == me }
     val owner = g.group.ownerId == me
     var code by remember { mutableStateOf<String?>(null) }

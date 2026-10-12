@@ -131,8 +131,8 @@ fun TripDetailScreen(graph: AppGraph, nav: NavController, tripId: String, ownerI
     val segments = remember(pts) {
         val out = ArrayList<MutableList<Pair<Int, LatLng>>>()
         pts?.filter { it.usable }?.sortedBy { it.seq }?.forEachIndexed { i, p ->
-            if (i == 0 || p.segmentStart) out += ArrayList()
-            out.last() += i to p.sample.latLng
+            if (i == 0 || p.segmentStart) out.add(ArrayList())
+            out.last().add(i to p.sample.latLng)
         }
         out
     }

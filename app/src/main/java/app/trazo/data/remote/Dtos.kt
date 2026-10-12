@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 import java.time.Instant
 import java.time.OffsetDateTime
 
-fun isoToMillis(iso: String?): Long? = iso?.let {
-    runCatching { OffsetDateTime.parse(it).toInstant().toEpochMilli() }
-        .recoverCatching { Instant.parse(it).toEpochMilli() }
+fun isoToMillis(iso: String?): Long? = iso?.let { s ->
+    runCatching { OffsetDateTime.parse(s).toInstant().toEpochMilli() }
+        .recoverCatching { Instant.parse(s).toEpochMilli() }
         .getOrNull()
 }
 

@@ -249,7 +249,7 @@ private fun LeaderboardSection(graph: AppGraph, range: PeriodRange, period: Peri
         else -> {
             val totals = r.associate { it.userId to Totals(it.trips.toInt(), it.distanceM, it.movingMs, it.movingMs, 0.0) }
             val byId = r.associateBy { it.userId }
-            val me = graph.backend.userIdOrNull()
+            val me = rememberMyId(graph)
             Leaderboard.rank(totals, metric).forEach { e ->
                 val row = byId[e.userId] ?: return@forEach
                 Row(Modifier.fillMaxWidth().padding(vertical = 6.dp), verticalAlignment = Alignment.CenterVertically) {

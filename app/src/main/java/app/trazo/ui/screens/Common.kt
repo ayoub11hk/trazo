@@ -23,6 +23,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -165,4 +166,11 @@ fun parseInvite(text: String): Pair<app.trazo.core.social.InviteCode.Kind?, Stri
     }
     val code = app.trazo.core.social.InviteCode.fromLinkOrText(t) ?: return null
     return null to code
+}
+
+/** The signed-in user's id, read from the auth state (no network call). */
+@Composable
+fun rememberMyId(graph: app.trazo.AppGraph): String? {
+    val auth by graph.auth.state.collectAsState(initial = app.trazo.data.repo.AuthState.Loading)
+    return (auth as? app.trazo.data.repo.AuthState.SignedIn)?.userId
 }

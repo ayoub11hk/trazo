@@ -91,7 +91,7 @@ fun GarageScreen(graph: AppGraph) {
     Scaffold(
         topBar = { TabTopBar("Garaje") },
         floatingActionButton = {
-            ExtendedFloatingActionButton({ creating = true }, icon = { Icon(Icons.Filled.Add, null) }, text = { Text("Añadir vehículo") })
+            ExtendedFloatingActionButton(onClick = { creating = true }, icon = { Icon(Icons.Filled.Add, null) }, text = { Text("Añadir vehículo") })
         },
     ) { pad ->
         val list = vehicles ?: return@Scaffold

@@ -62,9 +62,9 @@ class ConvoyRepository(private val backend: Backend) {
     suspend fun respondInvite(inviteId: String, accept: Boolean): String? {
         val r = backend.client().postgrest.rpc("respond_convoy_invite", buildJsonObject {
             put("p_invite", inviteId); put("p_accept", accept)
-        }).decodeAs<String?>()
+        }).decodeAs<kotlinx.serialization.json.JsonElement>()
         refresh()
-        return r
+        return (r as? kotlinx.serialization.json.JsonPrimitive)?.takeIf { it.isString }?.content
     }
 
     suspend fun leave(convoyId: String) {

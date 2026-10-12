@@ -25,7 +25,7 @@ import androidx.compose.material.icons.filled.PauseCircle
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Stop
-import androidx.compose.material.icons.filled.ThreeDRotation
+import androidx.compose.material.icons.filled.Landscape
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material.icons.outlined.GpsNotFixed
@@ -157,7 +157,7 @@ fun MapScreen(graph: AppGraph, nav: NavController, focusUserId: String?) {
     val labelColor = if (style.dark) Brand.SoftWhite.toArgb() else Brand.Graphite900.toArgb()
     val haloColor = if (style.dark) Brand.Graphite900.toArgb() else 0xFFFFFFFF.toInt()
 
-    val me = graph.backend.userIdOrNull()
+    val me = rememberMyId(graph)
     val pins = remember(positions, social, now) { buildPins(positions, social, me, now, handle?.density ?: 3f) }
 
     Box(Modifier.fillMaxSize()) {
@@ -287,7 +287,7 @@ fun MapScreen(graph: AppGraph, nav: NavController, focusUserId: String?) {
                 }
             }
             SmallFloatingActionButton({ tilted = !tilted; handle?.setTilt(if (tilted) 60.0 else 0.0) }) {
-                Icon(Icons.Filled.ThreeDRotation, if (tilted) "Vista plana" else "Vista 3D")
+                Icon(Icons.Filled.Landscape, if (tilted) "Vista plana" else "Vista 3D")
             }
             SmallFloatingActionButton({
                 follow = true

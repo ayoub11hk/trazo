@@ -75,7 +75,7 @@ fun ConvoysScreen(graph: AppGraph, nav: NavController) {
     Scaffold(
         topBar = { BackTopBar("Convoyes", nav) },
         floatingActionButton = {
-            ExtendedFloatingActionButton({ create = true }, icon = { Icon(Icons.Filled.Add, null) }, text = { Text("Nuevo convoy") })
+            ExtendedFloatingActionButton(onClick = { create = true }, icon = { Icon(Icons.Filled.Add, null) }, text = { Text("Nuevo convoy") })
         },
     ) { pad ->
         LazyColumn(Modifier.fillMaxSize().padding(pad).padding(horizontal = 16.dp)) {
@@ -121,7 +121,7 @@ fun ConvoyDetailScreen(graph: AppGraph, nav: NavController, convoyId: String) {
     val settings by graph.settings.settings.collectAsState(initial = null)
     val runner = rememberRunner()
     val info = convoys.firstOrNull { it.convoy.id == convoyId }
-    val me = graph.backend.userIdOrNull()
+    val me = rememberMyId(graph)
     var code by remember { mutableStateOf<String?>(null) }
     var inviting by remember { mutableStateOf(false) }
     var confirm by remember { mutableStateOf<String?>(null) }
