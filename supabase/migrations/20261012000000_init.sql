@@ -624,6 +624,19 @@ begin
   if not found then raise exception 'request not found' using errcode = 'P0002'; end if;
 end $$;
 
+-- Pending requests with the other person's name (their profile is not otherwise visible yet).
+create or replace function public.pending_requests()
+returns table (id uuid, incoming boolean, other_id uuid, other_name text, other_avatar text, created_at timestamptz)
+language sql stable security definer set search_path = '' as $$
+  select r.id, r.to_id = public.require_user(),
+         case when r.to_id = public.require_user() then r.from_id else r.to_id end,
+         p.display_name, p.avatar_url, r.created_at
+  from public.friend_requests r
+  join public.profiles p on p.id = case when r.to_id = public.require_user() then r.from_id else r.to_id end
+  where r.status = 'pending' and public.require_user() in (r.from_id, r.to_id)
+  order by r.created_at desc
+$$;
+
 -- Removing a friend revokes every permission in both directions at once.
 create or replace function public.remove_friend(p_friend uuid)
 returns void language plpgsql security definer set search_path = '' as $$
@@ -931,7 +944,7 @@ revoke execute on function public.issue_code(text, uuid), public.handle_new_user
 grant execute on function
   public.my_invite_code(), public.regenerate_invite_code(), public.resolve_invite_code(text),
   public.send_friend_request(text), public.respond_friend_request(uuid, boolean), public.cancel_friend_request(uuid),
-  public.remove_friend(uuid), public.create_group(text), public.group_invite_code(uuid), public.regenerate_group_code(uuid),
+  public.remove_friend(uuid), public.pending_requests(), public.create_group(text), public.group_invite_code(uuid), public.regenerate_group_code(uuid),
   public.join_group(text), public.leave_group(uuid), public.remove_group_member(uuid, uuid),
   public.create_convoy(text), public.convoy_invite_code(uuid), public.join_convoy(text), public.invite_to_convoy(uuid, uuid),
   public.respond_convoy_invite(uuid, boolean), public.leave_convoy(uuid), public.end_convoy(uuid),

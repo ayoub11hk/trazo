@@ -61,6 +61,7 @@ select tests.throws($$ select public.send_friend_request(public.my_invite_code()
 select tests.ok((select status from public.send_friend_request(lower((select c from bruno_code)))) = 'pending', 'request by (lower-case) code');
 select tests.ok((select count(*) from public.live_locations) = 0, 'a pending request reveals no location');
 select tests.ok((select count(*) from public.profiles) = 1, 'a pending request reveals no profile');
+select tests.ok((select other_name from public.pending_requests() where not incoming) = 'Bruno', 'sender sees pending request with name');
 reset role;
 
 -- Bruno shares a live position before accepting; Ana must not see it yet.
@@ -76,9 +77,11 @@ select tests.login('carla@test');
 select tests.throws($$ select public.respond_friend_request((select id from public.friend_requests limit 1), true) $$,
   'third party cannot accept someone else''s request');
 select tests.ok((select count(*) from public.friend_requests) = 0, 'third party cannot see requests');
+select tests.ok((select count(*) from public.pending_requests()) = 0, 'third party has no pending requests');
 reset role;
 
 select tests.login('bruno@test');
+select tests.ok((select other_name from public.pending_requests() where incoming) = 'Ana', 'recipient sees who is asking');
 select public.respond_friend_request((select id from public.friend_requests where status = 'pending'), true);
 select tests.ok((select count(*) from public.friendships) = 2, 'friendship rows in both directions');
 reset role;

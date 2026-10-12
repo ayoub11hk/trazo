@@ -80,6 +80,12 @@ class TripRecorder(
 
     fun updateDetectorConfig(c: TripDetectorConfig) = detector.updateConfig(c)
 
+    /** Forget the filter's anchor (e.g. after feeding simulated fixes with a different clock). */
+    fun resetFilter() {
+        filter.reset()
+        lookBack.clear()
+    }
+
     fun snapshot() = RecorderSnapshot(detector.snapshot(), nextSeq, lastMovingSeq())
 
     fun restore(s: RecorderSnapshot, rebooted: Boolean) {

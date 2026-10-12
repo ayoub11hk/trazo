@@ -1,5 +1,6 @@
 package app.trazo.core
 
+import app.trazo.core.export.Gpx
 import app.trazo.core.geo.GeoMath
 import app.trazo.core.geo.LatLng
 import app.trazo.core.geo.Polyline
@@ -200,5 +201,20 @@ class MiscCoreTest {
         samples.drop(half).forEach { r2.onFix(it) }
         assertEquals(1, sink2.trips.size)
         assertEquals(pointsBefore, sink2.trips.single().points.first().seq)
+    }
+
+    @Test fun gpxSplitsSegmentsAtGapsAndSkipsRejectedFixes() {
+        val pts = track(
+            listOf(Leg(DriveSimulator.straight(MADRID, 3000.0, 0.0), 20.0)),
+            DriveSimulator.Options(gaps = listOf(40_000L..70_000L), jumpsAt = setOf(20_000L)),
+        )
+        val gpx = Gpx.write("Ida & vuelta <test>", pts)
+        val segments = Regex("<trkseg>").findAll(gpx).count()
+        val written = Regex("<trkpt ").findAll(gpx).count()
+        assertEquals(pts.count { it.usable }, written)
+        assertTrue(pts.any { !it.usable }, "the injected jump must be rejected")
+        assertEquals(2, segments, "one segment before and one after the signal gap")
+        assertTrue(gpx.contains("Ida &amp; vuelta &lt;test&gt;"))
+        assertTrue(gpx.contains("<time>2025-"), "timestamps are written in ISO-8601 UTC")
     }
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Trazo</string>
+    <string name="channel_tracking">Seguimiento de viajes</string>
+    <string name="channel_tracking_desc">Aviso permanente mientras Trazo registra un viaje o comparte tu ubicación</string>
+    <string name="channel_social">Amigos y convoyes</string>
+    <string name="channel_social_desc">Solicitudes de amistad, invitaciones a convoyes y amigos que empiezan a conducir</string>
+    <string name="channel_trips">Resumen de viajes</string>
+    <string name="channel_trips_desc">Resumen al terminar cada viaje</string>
+</resources>

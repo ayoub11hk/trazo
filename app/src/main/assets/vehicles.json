@@ -1,0 +1,2038 @@
+{
+"version": 1,
+"makes": [
+{
+"name": "Abarth",
+"models": [
+{
+"name": "500",
+"body": "hatchback"
+},
+{
+"name": "595",
+"body": "hatchback"
+},
+{
+"name": "695",
+"body": "hatchback"
+},
+{
+"name": "124 Spider",
+"body": "convertible"
+}
+]
+},
+{
+"name": "Alfa Romeo",
+"models": [
+{
+"name": "Giulia",
+"body": "sedan"
+},
+{
+"name": "Stelvio",
+"body": "suv"
+},
+{
+"name": "Tonale",
+"body": "suv"
+},
+{
+"name": "Giulietta",
+"body": "hatchback"
+},
+{
+"name": "MiTo",
+"body": "hatchback"
+},
+{
+"name": "4C",
+"body": "sports"
+},
+{
+"name": "Junior",
+"body": "suv"
+}
+]
+},
+{
+"name": "Aston Martin",
+"models": [
+{
+"name": "Vantage",
+"body": "sports"
+},
+{
+"name": "DB11",
+"body": "coupe"
+},
+{
+"name": "DB12",
+"body": "coupe"
+},
+{
+"name": "DBX",
+"body": "suv"
+}
+]
+},
+{
+"name": "Audi",
+"models": [
+{
+"name": "A1",
+"body": "hatchback"
+},
+{
+"name": "A3",
+"body": "hatchback"
+},
+{
+"name": "A3 Sedan",
+"body": "sedan"
+},
+{
+"name": "A4",
+"body": "sedan"
+},
+{
+"name": "A4 Avant",
+"body": "wagon"
+},
+{
+"name": "A5",
+"body": "coupe"
+},
+{
+"name": "A6",
+"body": "sedan"
+},
+{
+"name": "A6 Avant",
+"body": "wagon"
+},
+{
+"name": "A7",
+"body": "coupe"
+},
+{
+"name": "A8",
+"body": "sedan"
+},
+{
+"name": "Q2",
+"body": "suv"
+},
+{
+"name": "Q3",
+"body": "suv"
+},
+{
+"name": "Q4 e-tron",
+"body": "suv"
+},
+{
+"name": "Q5",
+"body": "suv"
+},
+{
+"name": "Q7",
+"body": "suv"
+},
+{
+"name": "Q8",
+"body": "suv"
+},
+{
+"name": "TT",
+"body": "coupe"
+},
+{
+"name": "R8",
+"body": "sports"
+},
+{
+"name": "e-tron GT",
+"body": "sports"
+},
+{
+"name": "RS3",
+"body": "hatchback"
+},
+{
+"name": "RS6",
+"body": "wagon"
+}
+]
+},
+{
+"name": "BMW",
+"models": [
+{
+"name": "Serie 1",
+"body": "hatchback"
+},
+{
+"name": "Serie 2 Coupé",
+"body": "coupe"
+},
+{
+"name": "Serie 2 Active Tourer",
+"body": "van"
+},
+{
+"name": "Serie 3",
+"body": "sedan"
+},
+{
+"name": "Serie 3 Touring",
+"body": "wagon"
+},
+{
+"name": "Serie 4",
+"body": "coupe"
+},
+{
+"name": "Serie 5",
+"body": "sedan"
+},
+{
+"name": "Serie 5 Touring",
+"body": "wagon"
+},
+{
+"name": "Serie 7",
+"body": "sedan"
+},
+{
+"name": "X1",
+"body": "suv"
+},
+{
+"name": "X2",
+"body": "suv"
+},
+{
+"name": "X3",
+"body": "suv"
+},
+{
+"name": "X4",
+"body": "suv"
+},
+{
+"name": "X5",
+"body": "suv"
+},
+{
+"name": "X6",
+"body": "suv"
+},
+{
+"name": "X7",
+"body": "suv"
+},
+{
+"name": "Z4",
+"body": "convertible"
+},
+{
+"name": "i3",
+"body": "hatchback"
+},
+{
+"name": "i4",
+"body": "coupe"
+},
+{
+"name": "iX",
+"body": "suv"
+},
+{
+"name": "M2",
+"body": "sports"
+},
+{
+"name": "M3",
+"body": "sedan"
+},
+{
+"name": "M4",
+"body": "sports"
+}
+]
+},
+{
+"name": "BMW Motorrad",
+"models": [
+{
+"name": "R 1300 GS",
+"body": "motorbike"
+},
+{
+"name": "S 1000 RR",
+"body": "motorbike"
+},
+{
+"name": "F 900 R",
+"body": "motorbike"
+},
+{
+"name": "R nineT",
+"body": "motorbike"
+},
+{
+"name": "C 400 X",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "BYD",
+"models": [
+{
+"name": "Atto 3",
+"body": "suv"
+},
+{
+"name": "Dolphin",
+"body": "hatchback"
+},
+{
+"name": "Seal",
+"body": "sedan"
+},
+{
+"name": "Seal U",
+"body": "suv"
+},
+{
+"name": "Han",
+"body": "sedan"
+},
+{
+"name": "Tang",
+"body": "suv"
+}
+]
+},
+{
+"name": "Citroën",
+"models": [
+{
+"name": "C1",
+"body": "hatchback"
+},
+{
+"name": "C3",
+"body": "hatchback"
+},
+{
+"name": "C3 Aircross",
+"body": "suv"
+},
+{
+"name": "C4",
+"body": "hatchback"
+},
+{
+"name": "C4 X",
+"body": "sedan"
+},
+{
+"name": "C5 Aircross",
+"body": "suv"
+},
+{
+"name": "C5 X",
+"body": "wagon"
+},
+{
+"name": "Berlingo",
+"body": "van"
+},
+{
+"name": "SpaceTourer",
+"body": "van"
+},
+{
+"name": "Ami",
+"body": "hatchback"
+}
+]
+},
+{
+"name": "Cupra",
+"models": [
+{
+"name": "Born",
+"body": "hatchback"
+},
+{
+"name": "Formentor",
+"body": "suv"
+},
+{
+"name": "León",
+"body": "hatchback"
+},
+{
+"name": "León Sportstourer",
+"body": "wagon"
+},
+{
+"name": "Ateca",
+"body": "suv"
+},
+{
+"name": "Tavascan",
+"body": "suv"
+},
+{
+"name": "Terramar",
+"body": "suv"
+}
+]
+},
+{
+"name": "DS",
+"models": [
+{
+"name": "DS 3",
+"body": "suv"
+},
+{
+"name": "DS 4",
+"body": "hatchback"
+},
+{
+"name": "DS 7",
+"body": "suv"
+},
+{
+"name": "DS 9",
+"body": "sedan"
+}
+]
+},
+{
+"name": "Dacia",
+"models": [
+{
+"name": "Sandero",
+"body": "hatchback"
+},
+{
+"name": "Sandero Stepway",
+"body": "hatchback"
+},
+{
+"name": "Logan",
+"body": "sedan"
+},
+{
+"name": "Duster",
+"body": "suv"
+},
+{
+"name": "Jogger",
+"body": "wagon"
+},
+{
+"name": "Spring",
+"body": "hatchback"
+},
+{
+"name": "Bigster",
+"body": "suv"
+}
+]
+},
+{
+"name": "Ducati",
+"models": [
+{
+"name": "Monster",
+"body": "motorbike"
+},
+{
+"name": "Panigale V4",
+"body": "motorbike"
+},
+{
+"name": "Multistrada V4",
+"body": "motorbike"
+},
+{
+"name": "Scrambler",
+"body": "motorbike"
+},
+{
+"name": "Streetfighter V4",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Ferrari",
+"models": [
+{
+"name": "296 GTB",
+"body": "sports"
+},
+{
+"name": "Roma",
+"body": "coupe"
+},
+{
+"name": "SF90",
+"body": "sports"
+},
+{
+"name": "F8 Tributo",
+"body": "sports"
+},
+{
+"name": "812",
+"body": "sports"
+},
+{
+"name": "Purosangue",
+"body": "suv"
+}
+]
+},
+{
+"name": "Fiat",
+"models": [
+{
+"name": "500",
+"body": "hatchback"
+},
+{
+"name": "500e",
+"body": "hatchback"
+},
+{
+"name": "500X",
+"body": "suv"
+},
+{
+"name": "Panda",
+"body": "hatchback"
+},
+{
+"name": "Tipo",
+"body": "hatchback"
+},
+{
+"name": "Tipo SW",
+"body": "wagon"
+},
+{
+"name": "600",
+"body": "suv"
+},
+{
+"name": "Doblò",
+"body": "van"
+},
+{
+"name": "Ducato",
+"body": "van"
+},
+{
+"name": "Punto",
+"body": "hatchback"
+}
+]
+},
+{
+"name": "Ford",
+"models": [
+{
+"name": "Fiesta",
+"body": "hatchback"
+},
+{
+"name": "Focus",
+"body": "hatchback"
+},
+{
+"name": "Focus SW",
+"body": "wagon"
+},
+{
+"name": "Puma",
+"body": "suv"
+},
+{
+"name": "Kuga",
+"body": "suv"
+},
+{
+"name": "Mustang",
+"body": "sports"
+},
+{
+"name": "Mustang Mach-E",
+"body": "suv"
+},
+{
+"name": "Explorer",
+"body": "suv"
+},
+{
+"name": "Ranger",
+"body": "pickup"
+},
+{
+"name": "Transit",
+"body": "van"
+},
+{
+"name": "Transit Custom",
+"body": "van"
+},
+{
+"name": "Tourneo Connect",
+"body": "van"
+},
+{
+"name": "Mondeo",
+"body": "sedan"
+},
+{
+"name": "EcoSport",
+"body": "suv"
+},
+{
+"name": "Bronco",
+"body": "suv"
+}
+]
+},
+{
+"name": "Harley-Davidson",
+"models": [
+{
+"name": "Sportster S",
+"body": "motorbike"
+},
+{
+"name": "Street Glide",
+"body": "motorbike"
+},
+{
+"name": "Fat Boy",
+"body": "motorbike"
+},
+{
+"name": "Pan America",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Honda",
+"models": [
+{
+"name": "Civic",
+"body": "hatchback"
+},
+{
+"name": "Civic Type R",
+"body": "sports"
+},
+{
+"name": "Jazz",
+"body": "hatchback"
+},
+{
+"name": "HR-V",
+"body": "suv"
+},
+{
+"name": "CR-V",
+"body": "suv"
+},
+{
+"name": "ZR-V",
+"body": "suv"
+},
+{
+"name": "e:Ny1",
+"body": "suv"
+},
+{
+"name": "Accord",
+"body": "sedan"
+}
+]
+},
+{
+"name": "Honda Motos",
+"models": [
+{
+"name": "CB650R",
+"body": "motorbike"
+},
+{
+"name": "CBR600RR",
+"body": "motorbike"
+},
+{
+"name": "Africa Twin",
+"body": "motorbike"
+},
+{
+"name": "PCX 125",
+"body": "motorbike"
+},
+{
+"name": "NC750X",
+"body": "motorbike"
+},
+{
+"name": "Forza 350",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Hyundai",
+"models": [
+{
+"name": "i10",
+"body": "hatchback"
+},
+{
+"name": "i20",
+"body": "hatchback"
+},
+{
+"name": "i30",
+"body": "hatchback"
+},
+{
+"name": "i30 N",
+"body": "sports"
+},
+{
+"name": "Bayon",
+"body": "suv"
+},
+{
+"name": "Kona",
+"body": "suv"
+},
+{
+"name": "Tucson",
+"body": "suv"
+},
+{
+"name": "Santa Fe",
+"body": "suv"
+},
+{
+"name": "Ioniq 5",
+"body": "suv"
+},
+{
+"name": "Ioniq 6",
+"body": "sedan"
+},
+{
+"name": "Elantra",
+"body": "sedan"
+}
+]
+},
+{
+"name": "Iveco",
+"models": [
+{
+"name": "Daily",
+"body": "van"
+}
+]
+},
+{
+"name": "Jaguar",
+"models": [
+{
+"name": "XE",
+"body": "sedan"
+},
+{
+"name": "XF",
+"body": "sedan"
+},
+{
+"name": "F-Pace",
+"body": "suv"
+},
+{
+"name": "E-Pace",
+"body": "suv"
+},
+{
+"name": "I-Pace",
+"body": "suv"
+},
+{
+"name": "F-Type",
+"body": "sports"
+}
+]
+},
+{
+"name": "Jeep",
+"models": [
+{
+"name": "Avenger",
+"body": "suv"
+},
+{
+"name": "Renegade",
+"body": "suv"
+},
+{
+"name": "Compass",
+"body": "suv"
+},
+{
+"name": "Wrangler",
+"body": "suv"
+},
+{
+"name": "Grand Cherokee",
+"body": "suv"
+},
+{
+"name": "Gladiator",
+"body": "pickup"
+}
+]
+},
+{
+"name": "KTM",
+"models": [
+{
+"name": "Duke 390",
+"body": "motorbike"
+},
+{
+"name": "Duke 890",
+"body": "motorbike"
+},
+{
+"name": "1290 Super Duke R",
+"body": "motorbike"
+},
+{
+"name": "890 Adventure",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Kawasaki",
+"models": [
+{
+"name": "Z650",
+"body": "motorbike"
+},
+{
+"name": "Z900",
+"body": "motorbike"
+},
+{
+"name": "Ninja 650",
+"body": "motorbike"
+},
+{
+"name": "Ninja ZX-10R",
+"body": "motorbike"
+},
+{
+"name": "Versys 650",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Kia",
+"models": [
+{
+"name": "Picanto",
+"body": "hatchback"
+},
+{
+"name": "Rio",
+"body": "hatchback"
+},
+{
+"name": "Ceed",
+"body": "hatchback"
+},
+{
+"name": "Ceed Tourer",
+"body": "wagon"
+},
+{
+"name": "ProCeed",
+"body": "wagon"
+},
+{
+"name": "XCeed",
+"body": "suv"
+},
+{
+"name": "Stonic",
+"body": "suv"
+},
+{
+"name": "Niro",
+"body": "suv"
+},
+{
+"name": "Sportage",
+"body": "suv"
+},
+{
+"name": "Sorento",
+"body": "suv"
+},
+{
+"name": "EV6",
+"body": "suv"
+},
+{
+"name": "EV9",
+"body": "suv"
+},
+{
+"name": "Stinger",
+"body": "coupe"
+}
+]
+},
+{
+"name": "Lamborghini",
+"models": [
+{
+"name": "Huracán",
+"body": "sports"
+},
+{
+"name": "Revuelto",
+"body": "sports"
+},
+{
+"name": "Urus",
+"body": "suv"
+}
+]
+},
+{
+"name": "Land Rover",
+"models": [
+{
+"name": "Defender",
+"body": "suv"
+},
+{
+"name": "Discovery",
+"body": "suv"
+},
+{
+"name": "Discovery Sport",
+"body": "suv"
+},
+{
+"name": "Range Rover",
+"body": "suv"
+},
+{
+"name": "Range Rover Sport",
+"body": "suv"
+},
+{
+"name": "Range Rover Evoque",
+"body": "suv"
+},
+{
+"name": "Range Rover Velar",
+"body": "suv"
+}
+]
+},
+{
+"name": "Lexus",
+"models": [
+{
+"name": "UX",
+"body": "suv"
+},
+{
+"name": "NX",
+"body": "suv"
+},
+{
+"name": "RX",
+"body": "suv"
+},
+{
+"name": "LBX",
+"body": "suv"
+},
+{
+"name": "ES",
+"body": "sedan"
+},
+{
+"name": "LC",
+"body": "coupe"
+}
+]
+},
+{
+"name": "Lynk & Co",
+"models": [
+{
+"name": "01",
+"body": "suv"
+},
+{
+"name": "02",
+"body": "suv"
+}
+]
+},
+{
+"name": "MG",
+"models": [
+{
+"name": "MG3",
+"body": "hatchback"
+},
+{
+"name": "MG4",
+"body": "hatchback"
+},
+{
+"name": "MG5",
+"body": "wagon"
+},
+{
+"name": "ZS",
+"body": "suv"
+},
+{
+"name": "HS",
+"body": "suv"
+},
+{
+"name": "Marvel R",
+"body": "suv"
+},
+{
+"name": "Cyberster",
+"body": "convertible"
+}
+]
+},
+{
+"name": "MINI",
+"models": [
+{
+"name": "Cooper",
+"body": "hatchback"
+},
+{
+"name": "Cooper 5 puertas",
+"body": "hatchback"
+},
+{
+"name": "Countryman",
+"body": "suv"
+},
+{
+"name": "Clubman",
+"body": "wagon"
+},
+{
+"name": "Cabrio",
+"body": "convertible"
+},
+{
+"name": "Aceman",
+"body": "suv"
+}
+]
+},
+{
+"name": "Maserati",
+"models": [
+{
+"name": "Ghibli",
+"body": "sedan"
+},
+{
+"name": "Grecale",
+"body": "suv"
+},
+{
+"name": "Levante",
+"body": "suv"
+},
+{
+"name": "MC20",
+"body": "sports"
+},
+{
+"name": "GranTurismo",
+"body": "coupe"
+}
+]
+},
+{
+"name": "Mazda",
+"models": [
+{
+"name": "Mazda2",
+"body": "hatchback"
+},
+{
+"name": "Mazda3",
+"body": "hatchback"
+},
+{
+"name": "Mazda6",
+"body": "sedan"
+},
+{
+"name": "CX-3",
+"body": "suv"
+},
+{
+"name": "CX-30",
+"body": "suv"
+},
+{
+"name": "CX-5",
+"body": "suv"
+},
+{
+"name": "CX-60",
+"body": "suv"
+},
+{
+"name": "MX-5",
+"body": "convertible"
+},
+{
+"name": "MX-30",
+"body": "suv"
+}
+]
+},
+{
+"name": "Mercedes-Benz",
+"models": [
+{
+"name": "Clase A",
+"body": "hatchback"
+},
+{
+"name": "Clase A Sedán",
+"body": "sedan"
+},
+{
+"name": "Clase B",
+"body": "van"
+},
+{
+"name": "Clase C",
+"body": "sedan"
+},
+{
+"name": "Clase C Estate",
+"body": "wagon"
+},
+{
+"name": "Clase E",
+"body": "sedan"
+},
+{
+"name": "Clase E Estate",
+"body": "wagon"
+},
+{
+"name": "Clase S",
+"body": "sedan"
+},
+{
+"name": "CLA",
+"body": "coupe"
+},
+{
+"name": "CLE",
+"body": "coupe"
+},
+{
+"name": "GLA",
+"body": "suv"
+},
+{
+"name": "GLB",
+"body": "suv"
+},
+{
+"name": "GLC",
+"body": "suv"
+},
+{
+"name": "GLE",
+"body": "suv"
+},
+{
+"name": "GLS",
+"body": "suv"
+},
+{
+"name": "Clase G",
+"body": "suv"
+},
+{
+"name": "EQA",
+"body": "suv"
+},
+{
+"name": "EQB",
+"body": "suv"
+},
+{
+"name": "EQE",
+"body": "sedan"
+},
+{
+"name": "EQS",
+"body": "sedan"
+},
+{
+"name": "Clase V",
+"body": "van"
+},
+{
+"name": "Vito",
+"body": "van"
+},
+{
+"name": "Sprinter",
+"body": "van"
+},
+{
+"name": "AMG GT",
+"body": "sports"
+},
+{
+"name": "SL",
+"body": "convertible"
+}
+]
+},
+{
+"name": "Mitsubishi",
+"models": [
+{
+"name": "Space Star",
+"body": "hatchback"
+},
+{
+"name": "ASX",
+"body": "suv"
+},
+{
+"name": "Eclipse Cross",
+"body": "suv"
+},
+{
+"name": "Outlander",
+"body": "suv"
+},
+{
+"name": "L200",
+"body": "pickup"
+}
+]
+},
+{
+"name": "Nissan",
+"models": [
+{
+"name": "Micra",
+"body": "hatchback"
+},
+{
+"name": "Juke",
+"body": "suv"
+},
+{
+"name": "Qashqai",
+"body": "suv"
+},
+{
+"name": "X-Trail",
+"body": "suv"
+},
+{
+"name": "Ariya",
+"body": "suv"
+},
+{
+"name": "Leaf",
+"body": "hatchback"
+},
+{
+"name": "Navara",
+"body": "pickup"
+},
+{
+"name": "Townstar",
+"body": "van"
+},
+{
+"name": "370Z",
+"body": "sports"
+},
+{
+"name": "GT-R",
+"body": "sports"
+}
+]
+},
+{
+"name": "Opel",
+"models": [
+{
+"name": "Corsa",
+"body": "hatchback"
+},
+{
+"name": "Astra",
+"body": "hatchback"
+},
+{
+"name": "Astra Sports Tourer",
+"body": "wagon"
+},
+{
+"name": "Mokka",
+"body": "suv"
+},
+{
+"name": "Crossland",
+"body": "suv"
+},
+{
+"name": "Grandland",
+"body": "suv"
+},
+{
+"name": "Combo",
+"body": "van"
+},
+{
+"name": "Zafira",
+"body": "van"
+},
+{
+"name": "Insignia",
+"body": "sedan"
+},
+{
+"name": "Frontera",
+"body": "suv"
+}
+]
+},
+{
+"name": "Peugeot",
+"models": [
+{
+"name": "108",
+"body": "hatchback"
+},
+{
+"name": "208",
+"body": "hatchback"
+},
+{
+"name": "2008",
+"body": "suv"
+},
+{
+"name": "308",
+"body": "hatchback"
+},
+{
+"name": "308 SW",
+"body": "wagon"
+},
+{
+"name": "3008",
+"body": "suv"
+},
+{
+"name": "408",
+"body": "sedan"
+},
+{
+"name": "5008",
+"body": "suv"
+},
+{
+"name": "508",
+"body": "sedan"
+},
+{
+"name": "508 SW",
+"body": "wagon"
+},
+{
+"name": "Rifter",
+"body": "van"
+},
+{
+"name": "Partner",
+"body": "van"
+},
+{
+"name": "Traveller",
+"body": "van"
+}
+]
+},
+{
+"name": "Polestar",
+"models": [
+{
+"name": "2",
+"body": "sedan"
+},
+{
+"name": "3",
+"body": "suv"
+},
+{
+"name": "4",
+"body": "suv"
+}
+]
+},
+{
+"name": "Porsche",
+"models": [
+{
+"name": "911",
+"body": "sports"
+},
+{
+"name": "718 Cayman",
+"body": "sports"
+},
+{
+"name": "718 Boxster",
+"body": "convertible"
+},
+{
+"name": "Taycan",
+"body": "sports"
+},
+{
+"name": "Panamera",
+"body": "sedan"
+},
+{
+"name": "Macan",
+"body": "suv"
+},
+{
+"name": "Cayenne",
+"body": "suv"
+}
+]
+},
+{
+"name": "Renault",
+"models": [
+{
+"name": "Twingo",
+"body": "hatchback"
+},
+{
+"name": "Clio",
+"body": "hatchback"
+},
+{
+"name": "Captur",
+"body": "suv"
+},
+{
+"name": "Mégane",
+"body": "hatchback"
+},
+{
+"name": "Mégane E-Tech",
+"body": "suv"
+},
+{
+"name": "Arkana",
+"body": "suv"
+},
+{
+"name": "Austral",
+"body": "suv"
+},
+{
+"name": "Espace",
+"body": "suv"
+},
+{
+"name": "Scénic",
+"body": "suv"
+},
+{
+"name": "Kangoo",
+"body": "van"
+},
+{
+"name": "Trafic",
+"body": "van"
+},
+{
+"name": "Zoe",
+"body": "hatchback"
+},
+{
+"name": "Renault 5",
+"body": "hatchback"
+},
+{
+"name": "Symbioz",
+"body": "suv"
+}
+]
+},
+{
+"name": "Seat",
+"models": [
+{
+"name": "Ibiza",
+"body": "hatchback"
+},
+{
+"name": "León",
+"body": "hatchback"
+},
+{
+"name": "León Sportstourer",
+"body": "wagon"
+},
+{
+"name": "Arona",
+"body": "suv"
+},
+{
+"name": "Ateca",
+"body": "suv"
+},
+{
+"name": "Tarraco",
+"body": "suv"
+},
+{
+"name": "Mii",
+"body": "hatchback"
+},
+{
+"name": "Toledo",
+"body": "sedan"
+},
+{
+"name": "Alhambra",
+"body": "van"
+}
+]
+},
+{
+"name": "Smart",
+"models": [
+{
+"name": "fortwo",
+"body": "hatchback"
+},
+{
+"name": "#1",
+"body": "suv"
+},
+{
+"name": "#3",
+"body": "suv"
+}
+]
+},
+{
+"name": "SsangYong",
+"models": [
+{
+"name": "Tivoli",
+"body": "suv"
+},
+{
+"name": "Korando",
+"body": "suv"
+},
+{
+"name": "Rexton",
+"body": "suv"
+},
+{
+"name": "Musso",
+"body": "pickup"
+},
+{
+"name": "Torres",
+"body": "suv"
+}
+]
+},
+{
+"name": "Subaru",
+"models": [
+{
+"name": "Impreza",
+"body": "hatchback"
+},
+{
+"name": "XV / Crosstrek",
+"body": "suv"
+},
+{
+"name": "Forester",
+"body": "suv"
+},
+{
+"name": "Outback",
+"body": "wagon"
+},
+{
+"name": "BRZ",
+"body": "sports"
+},
+{
+"name": "Solterra",
+"body": "suv"
+}
+]
+},
+{
+"name": "Suzuki",
+"models": [
+{
+"name": "Swift",
+"body": "hatchback"
+},
+{
+"name": "Ignis",
+"body": "hatchback"
+},
+{
+"name": "Vitara",
+"body": "suv"
+},
+{
+"name": "S-Cross",
+"body": "suv"
+},
+{
+"name": "Jimny",
+"body": "suv"
+},
+{
+"name": "Across",
+"body": "suv"
+}
+]
+},
+{
+"name": "Tesla",
+"models": [
+{
+"name": "Model 3",
+"body": "sedan"
+},
+{
+"name": "Model Y",
+"body": "suv"
+},
+{
+"name": "Model S",
+"body": "sedan"
+},
+{
+"name": "Model X",
+"body": "suv"
+},
+{
+"name": "Cybertruck",
+"body": "pickup"
+}
+]
+},
+{
+"name": "Toyota",
+"models": [
+{
+"name": "Aygo X",
+"body": "hatchback"
+},
+{
+"name": "Yaris",
+"body": "hatchback"
+},
+{
+"name": "Yaris Cross",
+"body": "suv"
+},
+{
+"name": "Corolla",
+"body": "hatchback"
+},
+{
+"name": "Corolla Touring Sports",
+"body": "wagon"
+},
+{
+"name": "Corolla Sedán",
+"body": "sedan"
+},
+{
+"name": "C-HR",
+"body": "suv"
+},
+{
+"name": "RAV4",
+"body": "suv"
+},
+{
+"name": "bZ4X",
+"body": "suv"
+},
+{
+"name": "Prius",
+"body": "hatchback"
+},
+{
+"name": "Camry",
+"body": "sedan"
+},
+{
+"name": "Highlander",
+"body": "suv"
+},
+{
+"name": "Land Cruiser",
+"body": "suv"
+},
+{
+"name": "Hilux",
+"body": "pickup"
+},
+{
+"name": "Proace",
+"body": "van"
+},
+{
+"name": "Proace City",
+"body": "van"
+},
+{
+"name": "GR86",
+"body": "sports"
+},
+{
+"name": "GR Supra",
+"body": "sports"
+},
+{
+"name": "GR Yaris",
+"body": "hatchback"
+}
+]
+},
+{
+"name": "Triumph",
+"models": [
+{
+"name": "Street Triple",
+"body": "motorbike"
+},
+{
+"name": "Speed Triple",
+"body": "motorbike"
+},
+{
+"name": "Tiger 900",
+"body": "motorbike"
+},
+{
+"name": "Bonneville",
+"body": "motorbike"
+},
+{
+"name": "Trident 660",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Volkswagen",
+"models": [
+{
+"name": "up!",
+"body": "hatchback"
+},
+{
+"name": "Polo",
+"body": "hatchback"
+},
+{
+"name": "Golf",
+"body": "hatchback"
+},
+{
+"name": "Golf Variant",
+"body": "wagon"
+},
+{
+"name": "Golf GTI",
+"body": "hatchback"
+},
+{
+"name": "Golf R",
+"body": "hatchback"
+},
+{
+"name": "ID.3",
+"body": "hatchback"
+},
+{
+"name": "ID.4",
+"body": "suv"
+},
+{
+"name": "ID.5",
+"body": "suv"
+},
+{
+"name": "ID.7",
+"body": "sedan"
+},
+{
+"name": "ID. Buzz",
+"body": "van"
+},
+{
+"name": "T-Cross",
+"body": "suv"
+},
+{
+"name": "T-Roc",
+"body": "suv"
+},
+{
+"name": "Taigo",
+"body": "suv"
+},
+{
+"name": "Tiguan",
+"body": "suv"
+},
+{
+"name": "Touareg",
+"body": "suv"
+},
+{
+"name": "Passat",
+"body": "wagon"
+},
+{
+"name": "Arteon",
+"body": "sedan"
+},
+{
+"name": "Touran",
+"body": "van"
+},
+{
+"name": "Caddy",
+"body": "van"
+},
+{
+"name": "Transporter",
+"body": "van"
+},
+{
+"name": "Multivan",
+"body": "van"
+},
+{
+"name": "Amarok",
+"body": "pickup"
+},
+{
+"name": "Scirocco",
+"body": "coupe"
+},
+{
+"name": "Beetle",
+"body": "hatchback"
+}
+]
+},
+{
+"name": "Volvo",
+"models": [
+{
+"name": "EX30",
+"body": "suv"
+},
+{
+"name": "XC40",
+"body": "suv"
+},
+{
+"name": "EX40",
+"body": "suv"
+},
+{
+"name": "XC60",
+"body": "suv"
+},
+{
+"name": "XC90",
+"body": "suv"
+},
+{
+"name": "EX90",
+"body": "suv"
+},
+{
+"name": "S60",
+"body": "sedan"
+},
+{
+"name": "S90",
+"body": "sedan"
+},
+{
+"name": "V60",
+"body": "wagon"
+},
+{
+"name": "V90",
+"body": "wagon"
+}
+]
+},
+{
+"name": "Yamaha",
+"models": [
+{
+"name": "MT-07",
+"body": "motorbike"
+},
+{
+"name": "MT-09",
+"body": "motorbike"
+},
+{
+"name": "R1",
+"body": "motorbike"
+},
+{
+"name": "R7",
+"body": "motorbike"
+},
+{
+"name": "Tracer 9",
+"body": "motorbike"
+},
+{
+"name": "TMAX",
+"body": "motorbike"
+},
+{
+"name": "XMAX 125",
+"body": "motorbike"
+},
+{
+"name": "Ténéré 700",
+"body": "motorbike"
+}
+]
+},
+{
+"name": "Škoda",
+"models": [
+{
+"name": "Fabia",
+"body": "hatchback"
+},
+{
+"name": "Scala",
+"body": "hatchback"
+},
+{
+"name": "Octavia",
+"body": "sedan"
+},
+{
+"name": "Octavia Combi",
+"body": "wagon"
+},
+{
+"name": "Superb",
+"body": "sedan"
+},
+{
+"name": "Superb Combi",
+"body": "wagon"
+},
+{
+"name": "Kamiq",
+"body": "suv"
+},
+{
+"name": "Karoq",
+"body": "suv"
+},
+{
+"name": "Kodiaq",
+"body": "suv"
+},
+{
+"name": "Enyaq",
+"body": "suv"
+},
+{
+"name": "Elroq",
+"body": "suv"
+}
+]
+}
+]
+}
