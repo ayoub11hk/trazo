@@ -27,7 +27,7 @@ fun signing(name: String): String? = keystoreProps.getProperty(name) ?: System.g
 
 android {
     namespace = "app.trazo"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "app.trazo"
