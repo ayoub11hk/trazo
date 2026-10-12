@@ -59,21 +59,24 @@ jobs:
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
           set -o pipefail
-          gradle assembleDebug lintDebug --continue 2>&1 | tee build.log
+          gradle assembleDebug assembleCompact lintDebug --continue 2>&1 | tee build.log
       - name: Resumen de errores de compilación
         if: failure()
         run: |
           grep -E '^(e|w): file' build.log | grep '^e:' | sed 's#file:///home/runner/work/trazo/trazo/##' | sort -u | head -300 || true
           grep -E 'What went wrong' -A12 build.log | head -80 || true
       - uses: actions/upload-artifact@v4
-        with: { name: trazo-debug-apk, path: app/build/outputs/apk/debug/*.apk }
+        with: { name: trazo-apks, path: 'app/build/outputs/apk/*/*.apk' }
       - name: Publicar APK de prueba en Releases (descarga directa desde el móvil)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |
-          cp app/build/outputs/apk/debug/app-debug.apk trazo-debug.apk
+          ls -l app/build/outputs/apk/*/
+          cp app/build/outputs/apk/compact/app-arm64-v8a-compact.apk trazo.apk
+          cp app/build/outputs/apk/compact/app-armeabi-v7a-compact.apk trazo-armv7.apk
+          cp app/build/outputs/apk/debug/app-universal-debug.apk trazo-debug.apk
           gh release delete debug-latest --yes --cleanup-tag || true
-          gh release create debug-latest trazo-debug.apk --prerelease --target "$GITHUB_SHA" \
+          gh release create debug-latest trazo.apk trazo-armv7.apk trazo-debug.apk --prerelease --target "$GITHUB_SHA" \
             --title "Trazo (versión de prueba)" \
             --notes "APK de depuración generado automáticamente desde ${GITHUB_SHA::7}. Instálalo en Android 8 o superior."
       - uses: actions/upload-artifact@v4
