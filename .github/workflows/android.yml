@@ -55,7 +55,14 @@ jobs:
           # Public values only (project URL and anon key). Without them the app asks for them on first launch.
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-        run: gradle assembleDebug lintDebug --stacktrace
+        run: |
+          set -o pipefail
+          gradle assembleDebug lintDebug --continue 2>&1 | tee build.log
+      - name: Resumen de errores de compilación
+        if: failure()
+        run: |
+          grep -E '^(e|w): file' build.log | grep '^e:' | sed 's#file:///home/runner/work/trazo/trazo/##' | sort -u | head -300 || true
+          grep -E 'What went wrong' -A12 build.log | head -80 || true
       - uses: actions/upload-artifact@v4
         with: { name: trazo-debug-apk, path: app/build/outputs/apk/debug/*.apk }
       - uses: actions/upload-artifact@v4
