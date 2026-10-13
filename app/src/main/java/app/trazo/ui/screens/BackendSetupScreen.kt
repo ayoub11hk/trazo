@@ -59,7 +59,7 @@ fun BackendSetupScreen(graph: AppGraph) {
         Spacer(Modifier.height(20.dp))
         Button(
             enabled = app.trazo.core.backend.SupabaseKey.isProjectUrl(url) && kind == app.trazo.core.backend.SupabaseKey.Kind.PUBLIC,
-            onClick = { scope.launch { graph.settings.setBackend(url, key) } },
+            onClick = { scope.launch { graph.settings.setBackend(app.trazo.core.backend.SupabaseKey.normalizeProjectUrl(url)!!, key) } },
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) { Text("Guardar y continuar") }
     }

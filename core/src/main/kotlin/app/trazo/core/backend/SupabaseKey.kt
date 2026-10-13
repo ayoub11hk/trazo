@@ -22,6 +22,9 @@ object SupabaseKey {
         }
     }
 
-    fun isProjectUrl(raw: String): Boolean =
-        Regex("""https://[A-Za-z0-9.-]+(:\d+)?/?""").matches(raw.trim())
+    /** Accepts the address as the dashboard shows it, e.g. with a trailing /rest/v1/, and keeps only the origin. */
+    fun normalizeProjectUrl(raw: String): String? =
+        Regex("""(https://[A-Za-z0-9.-]+(:\d+)?)(/.*)?""").matchEntire(raw.trim())?.groupValues?.get(1)
+
+    fun isProjectUrl(raw: String): Boolean = normalizeProjectUrl(raw) != null
 }

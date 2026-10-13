@@ -34,5 +34,6 @@ class SupabaseKeyTest {
         assertTrue(SupabaseKey.isProjectUrl("https://abcdxyz.supabase.co"))
         assertFalse(SupabaseKey.isProjectUrl("https://"))
         assertFalse(SupabaseKey.isProjectUrl("http://abcdxyz.supabase.co"))
+        assertEquals("https://abcdxyz.supabase.co", SupabaseKey.normalizeProjectUrl("https://abcdxyz.supabase.co/rest/v1/"))
     }
 }
