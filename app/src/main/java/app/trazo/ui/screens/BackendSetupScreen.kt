@@ -46,9 +46,19 @@ fun BackendSetupScreen(graph: AppGraph) {
         OutlinedTextField(url, { url = it.trim() }, Modifier.fillMaxWidth(), label = { Text("Project URL") }, singleLine = true)
         Spacer(Modifier.height(10.dp))
         OutlinedTextField(key, { key = it.trim() }, Modifier.fillMaxWidth(), label = { Text("anon public key") }, minLines = 3)
+        val kind = app.trazo.core.backend.SupabaseKey.classify(key)
+        if (key.isNotEmpty() && kind != app.trazo.core.backend.SupabaseKey.Kind.PUBLIC) {
+            Spacer(Modifier.height(8.dp))
+            Text(
+                if (kind == app.trazo.core.backend.SupabaseKey.Kind.SECRET)
+                    "Esa es una clave secreta del servidor. No la pongas en ninguna app: usa la «anon public» o «publishable»."
+                else "No parece una clave anon public de Supabase. Cópiala entera desde Settings → API.",
+                style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.error,
+            )
+        }
         Spacer(Modifier.height(20.dp))
         Button(
-            enabled = url.startsWith("https://") && url.length > 12 && key.length > 20 && !key.contains("service_role"),
+            enabled = app.trazo.core.backend.SupabaseKey.isProjectUrl(url) && kind == app.trazo.core.backend.SupabaseKey.Kind.PUBLIC,
             onClick = { scope.launch { graph.settings.setBackend(url, key) } },
             modifier = Modifier.fillMaxWidth().height(52.dp),
         ) { Text("Guardar y continuar") }
