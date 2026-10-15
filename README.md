@@ -19,6 +19,7 @@ Inspirada en la categoría de apps como Wheelz, con nombre, marca, iconos, códi
 1. Crea un proyecto en Supabase y aplica la migración: ver [docs/BACKEND.md](docs/BACKEND.md).
 2. Compila: ver [docs/INSTALACION.md](docs/INSTALACION.md). Sin servidor configurado en la compilación, la app pide la URL y la clave pública al abrirse.
 3. Estado de las pruebas (qué se ha probado y qué no): [docs/PRUEBAS.md](docs/PRUEBAS.md).
+4. Novedades del rediseño 0.2 y sus límites: [docs/REDISENO.md](docs/REDISENO.md).
 
 ## Funciones
 
