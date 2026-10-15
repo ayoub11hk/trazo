@@ -19,6 +19,28 @@ data class ProfileDto(
     @SerialName("display_name") val displayName: String,
     @SerialName("avatar_url") val avatarUrl: String? = null,
     @SerialName("active_vehicle_id") val activeVehicleId: String? = null,
+    /** Optional unique handle for search (added 15/10/2026; null on databases without the migration). */
+    val username: String? = null,
+    val bio: String? = null,
+)
+
+/** A result of the user-name search: never carries a location. */
+@Serializable
+data class FoundUser(
+    val id: String,
+    @SerialName("display_name") val displayName: String,
+    val username: String? = null,
+    @SerialName("avatar_url") val avatarUrl: String? = null,
+    /** friend, pending_out, pending_in or none. */
+    val relation: String = "none",
+)
+
+@Serializable
+data class LiveTrailPointDto(
+    val t: String,
+    val lat: Double,
+    val lng: Double,
+    @SerialName("accuracy_m") val accuracyM: Float? = null,
 )
 
 @Serializable

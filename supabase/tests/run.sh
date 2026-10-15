@@ -13,3 +13,7 @@ OUT=$(psql -v ON_ERROR_STOP=1 -d "$DB" -f "$DIR/tests/10_access_rules.sql" 2>&1)
 echo "$OUT" | grep -E 'ok -|FAILED|PASSED|ERROR' || true
 if echo "$OUT" | grep -qE 'FAILED|ERROR'; then exit 1; fi
 echo "$OUT" | grep -q 'ALL ACCESS-RULE TESTS PASSED' || { echo "no final PASSED line"; exit 1; }
+OUT=$(psql -v ON_ERROR_STOP=1 -d "$DB" -f "$DIR/tests/20_live_profiles.sql" 2>&1) || { echo "$OUT" | grep -E 'ok -|FAILED|ERROR' ; exit 1; }
+echo "$OUT" | grep -E 'ok -|FAILED|PASSED|ERROR' || true
+if echo "$OUT" | grep -qE 'FAILED|ERROR'; then exit 1; fi
+echo "$OUT" | grep -q 'ALL LIVE-PROFILE TESTS PASSED' || { echo "no final PASSED line"; exit 1; }

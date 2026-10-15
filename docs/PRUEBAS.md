@@ -2,6 +2,29 @@
 
 Este documento distingue lo **ejecutado** de lo **pendiente**. No se da nada por probado sin haberlo ejecutado.
 
+## Rediseño 0.2 (15/10/2026)
+
+### Ejecutado y en verde
+- Núcleo: `gradle -p core test` → 52 pruebas, 0 fallos (17 nuevas: líneas en directo, movimiento de marcadores, cámara).
+- Backend: `supabase/tests/run.sh` → 106 comprobaciones, 0 fallos (26 nuevas: @usuario, presentación, búsqueda, solicitudes, `live_trail` con amigos, desconocidos, sin compartir, modo fantasma, viaje terminado y anónimo). La migración se ejecutó dos veces seguidas sin error.
+- Estilo de mapa: validado con el validador oficial de MapLibre (0 errores).
+- Compilación de la APK en GitHub Actions.
+
+### No ejecutado aquí (requiere teléfono o el Supabase real)
+El contenedor no puede descargar los mapas de OpenFreeMap ni ejecutar Android, así que estas pruebas quedan para el teléfono:
+1. Abrir la app con permiso: centra en tu calle a zoom 16–17 en pocos segundos.
+2. Denegar el permiso: aparece el aviso con botón y el mapa se puede mover.
+3. Modo avión: aparece «Sin conexión»; al volver, se reconecta solo.
+4. Mover el mapa: no vuelve a centrarse hasta pulsar el botón de localizar.
+5. Cerrar y abrir: vuelve a la última vista.
+6. Con dos teléfonos amigos: cada uno ve al otro moverse con suavidad y su línea de color.
+7. Dejar de compartir o modo fantasma: el otro deja de verte.
+8. Un tercero que no es amigo no ve nada.
+9. Perder señal un rato (túnel): la línea se corta, no hay recta.
+10. Ocultar y borrar la línea de un amigo desde el panel.
+11. Poner @usuario y presentación, buscar a un amigo por @usuario y enviarle solicitud.
+12. Subir foto de perfil y verla en el marcador del amigo.
+
 ## Ejecutado y en verde (12/10/2026)
 
 ### Núcleo — `gradle -p core test` → 30 pruebas, 0 fallos

@@ -1,8 +1,6 @@
 package app.trazo.map
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.location.Location
 import android.os.Bundle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -19,15 +17,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import app.trazo.core.geo.LatLng
-import app.trazo.core.location.LocationSample
-import app.trazo.util.Permissions
 import org.maplibre.android.camera.CameraPosition
 import org.maplibre.android.camera.CameraUpdateFactory
 import org.maplibre.android.geometry.LatLngBounds
-import org.maplibre.android.location.LocationComponentActivationOptions
-import org.maplibre.android.location.LocationComponentOptions
-import org.maplibre.android.location.modes.CameraMode
-import org.maplibre.android.location.modes.RenderMode
 import org.maplibre.android.maps.MapLibreMap
 import org.maplibre.android.maps.MapView
 import org.maplibre.android.maps.Style
@@ -60,43 +52,13 @@ class MapHandle internal constructor(val map: MapLibreMap, val style: Style, pri
         map.animateCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.Builder(map.cameraPosition).tilt(tilt).build()), 500)
     }
 
-    @SuppressLint("MissingPermission")
-    fun enableMyLocation(follow: Boolean) {
-        if (!Permissions.anyLocation(context)) return
-        val lc = map.locationComponent
-        if (!lc.isLocationComponentActivated) {
-            val opts = LocationComponentOptions.builder(context)
-                .accuracyAlpha(0.18f)
-                .pulseEnabled(true)
-                .build()
-            lc.activateLocationComponent(
-                LocationComponentActivationOptions.builder(context, style)
-                    .locationComponentOptions(opts)
-                    .useDefaultLocationEngine(false)
-                    .build(),
-            )
-        }
-        lc.isLocationComponentEnabled = true
-        lc.renderMode = RenderMode.GPS
-        lc.cameraMode = if (follow) CameraMode.TRACKING_GPS else CameraMode.NONE
+    /** Moves the camera without animation (used every frame while following a moving marker). */
+    fun jumpTo(p: LatLng) {
+        map.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.Builder(map.cameraPosition).target(p.toML()).build()))
     }
 
-    fun pushMyLocation(s: LocationSample) {
-        val lc = map.locationComponent
-        if (!lc.isLocationComponentActivated) return
-        lc.forceLocationUpdate(Location("trazo").apply {
-            latitude = s.lat; longitude = s.lng
-            s.accuracyM?.let { accuracy = it }
-            s.reliableBearingDeg()?.let { bearing = it }
-            s.speedMps?.let { speed = it }
-            time = s.timeMs
-        })
-    }
-
-    fun stopFollowing() {
-        val lc = map.locationComponent
-        if (lc.isLocationComponentActivated) lc.cameraMode = CameraMode.NONE
-    }
+    val zoom: Double get() = map.cameraPosition.zoom
+    val target: LatLng? get() = map.cameraPosition.target?.let { LatLng(it.latitude, it.longitude) }
 }
 
 /**
@@ -109,20 +71,32 @@ fun TrazoMapView(
     modifier: Modifier = Modifier,
     initialCamera: CameraPosition? = null,
     onCameraMovedByUser: () -> Unit = {},
+    onLoadFailed: (String) -> Unit = {},
+    attributionTopDp: Int = 0,
     onReady: (MapHandle) -> Unit,
 ) {
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     val currentOnReady by rememberUpdatedState(onReady)
     val currentOnMoved by rememberUpdatedState(onCameraMovedByUser)
+    val currentOnFailed by rememberUpdatedState(onLoadFailed)
     var map by remember { mutableStateOf<MapLibreMap?>(null) }
     val mapView = remember {
         MapView(context).apply {
             onCreate(Bundle())
+            addOnDidFailLoadingMapListener { msg -> currentOnFailed(msg ?: "") }
             getMapAsync { m ->
                 m.uiSettings.isAttributionEnabled = true
                 m.uiSettings.isLogoEnabled = false
                 m.uiSettings.isCompassEnabled = true
+                val d = context.resources.displayMetrics.density
+                if (attributionTopDp > 0) {
+                    // Keep the OpenStreetMap credit visible but out of the way of floating panels.
+                    m.uiSettings.attributionGravity = android.view.Gravity.TOP or android.view.Gravity.START
+                    m.uiSettings.setAttributionMargins((8 * d).toInt(), (attributionTopDp * d).toInt(), 0, 0)
+                    m.uiSettings.compassGravity = android.view.Gravity.TOP or android.view.Gravity.END
+                    m.uiSettings.setCompassMargins(0, (attributionTopDp * d).toInt(), (12 * d).toInt(), 0)
+                }
                 m.setMinZoomPreference(2.0)
                 m.setMaxPitchPreference(70.0)
                 initialCamera?.let { m.cameraPosition = it }
@@ -158,10 +132,19 @@ fun TrazoMapView(
 
     LaunchedEffect(map, styleUrl) {
         val m = map ?: return@LaunchedEffect
-        m.setStyle(Style.Builder().fromUri(styleUrl)) { style ->
+        m.setStyle(styleBuilder(context, styleUrl)) { style ->
             currentOnReady(MapHandle(m, style, context))
         }
     }
 
     AndroidView(factory = { mapView }, modifier = modifier)
+}
+
+/** Bundled styles (asset://…) are read from the APK; everything else is fetched by MapLibre. */
+private fun styleBuilder(context: Context, url: String): Style.Builder {
+    if (url.startsWith("asset://")) {
+        val json = runCatching { context.assets.open(url.removePrefix("asset://")).bufferedReader().use { it.readText() } }.getOrNull()
+        if (json != null) return Style.Builder().fromJson(json)
+    }
+    return Style.Builder().fromUri(url)
 }

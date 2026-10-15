@@ -42,6 +42,16 @@ class ProfileRepository(private val backend: Backend) {
         refresh()
     }
 
+    /** User name (lower-case, unique) and short bio. Empty values clear them. */
+    suspend fun updateIdentity(username: String?, bio: String?) {
+        val uid = backend.requireUserId()
+        backend.client().from("profiles").update(buildJsonObject {
+            if (username != null) put("username", username.trim().removePrefix("@").lowercase().ifEmpty { null })
+            if (bio != null) put("bio", bio.trim().take(140).ifEmpty { null })
+        }) { filter { eq("id", uid) } }
+        refresh()
+    }
+
     suspend fun setActiveVehicle(vehicleId: String?) {
         val uid = backend.requireUserId()
         backend.client().from("profiles").update(buildJsonObject { put("active_vehicle_id", vehicleId) }) {

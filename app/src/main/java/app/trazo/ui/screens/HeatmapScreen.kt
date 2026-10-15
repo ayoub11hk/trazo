@@ -46,7 +46,7 @@ fun HeatmapScreen(graph: AppGraph, nav: NavController) {
     }
     Scaffold(topBar = { BackTopBar("Mapa de calor", nav) }) { pad ->
         Box(Modifier.fillMaxSize().padding(pad)) {
-            val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.DARK
+            val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.TRAZO
             TrazoMapView(style.url, Modifier.fillMaxSize()) { h ->
                 MapLayers.ensureHeatmap(h.style, "heat")
                 handle = h

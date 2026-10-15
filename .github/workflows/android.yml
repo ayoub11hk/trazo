@@ -2,7 +2,7 @@ name: Trazo CI
 
 on:
   push:
-    branches: [main]
+    branches: [main, 'claude/**']
   pull_request:
   workflow_dispatch:
 
@@ -57,6 +57,8 @@ jobs:
           # Public values only (project URL and anon key). Without them the app asks for them on first launch.
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          TRAZO_VERSION_NAME: '0.2.${{ github.run_number }}'
+          TRAZO_VERSION_CODE: '${{ github.run_number }}'
         run: |
           set -o pipefail
           gradle assembleDebug assembleCompact lintDebug --continue 2>&1 | tee build.log
@@ -68,16 +70,18 @@ jobs:
       - uses: actions/upload-artifact@v4
         with: { name: trazo-apks, path: 'app/build/outputs/apk/*/*.apk' }
       - name: Publicar APK de prueba en Releases (descarga directa desde el móvil)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push'
         env: { GH_TOKEN: '${{ github.token }}' }
         run: |
+          # main publishes "debug-latest"; work branches publish their own pre-release to test before merging.
+          if [ "$GITHUB_REF_NAME" = "main" ]; then TAG=debug-latest; else TAG="debug-$(echo "$GITHUB_REF_NAME" | tr '/' '-')"; fi
           ls -l app/build/outputs/apk/*/
           cp app/build/outputs/apk/compact/app-arm64-v8a-compact.apk trazo.apk
           cp app/build/outputs/apk/compact/app-armeabi-v7a-compact.apk trazo-armv7.apk
           cp app/build/outputs/apk/debug/app-universal-debug.apk trazo-debug.apk
-          gh release delete debug-latest --yes --cleanup-tag || true
-          gh release create debug-latest trazo.apk trazo-armv7.apk trazo-debug.apk --prerelease --target "$GITHUB_SHA" \
-            --title "Trazo (versión de prueba)" \
+          gh release delete "$TAG" --yes --cleanup-tag || true
+          gh release create "$TAG" trazo.apk trazo-armv7.apk trazo-debug.apk --prerelease --target "$GITHUB_SHA" \
+            --title "Trazo (versión de prueba, $GITHUB_REF_NAME)" \
             --notes "APK de depuración generado automáticamente desde ${GITHUB_SHA::7}. Instálalo en Android 8 o superior."
       - uses: actions/upload-artifact@v4
         if: always()

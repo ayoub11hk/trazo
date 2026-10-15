@@ -34,6 +34,7 @@ class TripRepository(
     fun observeTrips(): Flow<List<TripEntity>> = trips.observeCompleted()
     fun observeTrip(id: String): Flow<TripEntity?> = trips.observe(id)
     fun observeRecording(): Flow<TripEntity?> = trips.observeRecording()
+    fun observePoints(tripId: String): Flow<List<PointEntity>> = points.observeForTrip(tripId)
     fun observePendingUploads(): Flow<Int> = points.observePendingCount()
     suspend fun completed(): List<TripEntity> = trips.completed()
     suspend fun get(id: String) = trips.get(id)

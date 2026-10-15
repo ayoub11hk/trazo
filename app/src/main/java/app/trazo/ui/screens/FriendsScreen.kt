@@ -86,9 +86,20 @@ fun FriendsScreen(graph: AppGraph, nav: NavController, activity: MainActivity) {
     LaunchedEffect(Unit) { while (true) { now = System.currentTimeMillis(); delay(10_000) } }
     LaunchedEffect(Unit) { runCatching { graph.social.refresh(); graph.profile.refresh() } }
 
+    var found by remember { mutableStateOf<List<app.trazo.data.remote.FoundUser>?>(null) }
+
     fun lookup(text: String) {
         val parsed = parseInvite(text)
-        if (parsed == null) { runner.error = "Ese código no es válido. Tiene 8 caracteres, por ejemplo K7Q2-9MXA."; return }
+        found = null
+        if (parsed == null || text.trim().startsWith("@")) {
+            val q = text.trim().removePrefix("@")
+            if (q.length >= 3 && q.all { it.isLetterOrDigit() || it == '_' || it == '.' }) {
+                runner.run { found = graph.social.findUsers(q) }
+                return
+            }
+            runner.error = "Escribe un código de 8 caracteres (por ejemplo K7Q2-9MXA) o un nombre de usuario de al menos 3 letras."
+            return
+        }
         runner.run {
             val r = graph.social.resolve(parsed.second)
                 ?: throw IllegalStateException("No existe ningún código así (o ha caducado).")
@@ -123,15 +134,35 @@ fun FriendsScreen(graph: AppGraph, nav: NavController, activity: MainActivity) {
                 Spacer(Modifier.height(12.dp))
                 SettingCard {
                     Column(Modifier.padding(16.dp)) {
-                        Text("Añadir con un código", style = MaterialTheme.typography.titleSmall)
-                        Text("Sirve para amigos, grupos y convoyes.", style = MaterialTheme.typography.bodySmall,
+                        Text("Buscar o añadir", style = MaterialTheme.typography.titleSmall)
+                        Text("Nombre de usuario (@ana.g) o código de amigo, grupo o convoy.", style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant)
                         Spacer(Modifier.height(10.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             OutlinedTextField(codeInput, { codeInput = it.take(80) }, Modifier.weight(1f),
-                                placeholder = { Text("XXXX-XXXX") }, singleLine = true)
+                                placeholder = { Text("@usuario o XXXX-XXXX") }, singleLine = true)
                             Spacer(Modifier.width(8.dp))
                             Button({ lookup(codeInput) }, enabled = codeInput.isNotBlank() && !runner.busy) { Text("Buscar") }
+                        }
+                        found?.let { list ->
+                            Spacer(Modifier.height(8.dp))
+                            if (list.isEmpty()) Text("No hay nadie con ese nombre de usuario.", style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant)
+                            list.forEach { u ->
+                                PersonRow(u.displayName, u.avatarUrl, u.username?.let { "@$it" } ?: "") {
+                                    when (u.relation) {
+                                        "friend" -> Text("Amigos", style = MaterialTheme.typography.labelLarge, color = Brand.Live)
+                                        "pending_out" -> Text("Enviada", style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                                        else -> FilledTonalButton({
+                                            runner.run {
+                                                val res = graph.social.sendRequestTo(u.id)
+                                                toast(ctx, if (res.status == "accepted") "Ya sois amigos." else "Solicitud enviada a ${u.displayName}.")
+                                                found = graph.social.findUsers(u.username ?: return@run)
+                                            }
+                                        }) { Text(if (u.relation == "pending_in") "Aceptar" else "Añadir") }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -297,6 +328,11 @@ private fun FriendRow(f: Friend, live: app.trazo.data.remote.LiveLocationDto?, n
         Column(Modifier.weight(1f)) {
             Text(f.profile.displayName, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
             FreshnessBadge(fresh, t?.let { LocationFreshness.ageLabel(it, now) } ?: "sin ubicación compartida")
+            val shares = buildList {
+                add(if (f.theirs?.shareLocation == true) "Te comparte su ubicación" else "No te comparte su ubicación")
+                if (!f.mine.shareLocation) add("tú no le compartes la tuya")
+            }
+            Text(shares.joinToString(" · "), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             f.vehicle?.let {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(Icons.Outlined.DirectionsCar, null, Modifier.padding(end = 4.dp), tint = MaterialTheme.colorScheme.onSurfaceVariant)

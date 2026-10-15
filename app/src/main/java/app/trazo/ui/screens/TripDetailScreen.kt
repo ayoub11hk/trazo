@@ -230,7 +230,7 @@ fun TripDetailScreen(graph: AppGraph, nav: NavController, tripId: String, ownerI
         if (pts == null || geo == null || timeline == null) { LoadingState(Modifier.padding(pad), "Cargando recorrido…"); return@Scaffold }
         Column(Modifier.fillMaxSize().padding(pad).verticalScroll(rememberScrollState())) {
             Box(Modifier.fillMaxWidth().height(340.dp)) {
-                val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.DARK
+                val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.TRAZO
                 val c = TrazoTheme.colors
                 TrazoMapView(style.url, Modifier.fillMaxSize(), onCameraMovedByUser = { followCam = false }) { h ->
                     MapLayers.ensureRoute(h.style, "trip", RouteColors(

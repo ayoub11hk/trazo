@@ -44,6 +44,14 @@ android {
     }
 
     signingConfigs {
+        // Shared key for test builds (debug and compact) so each new APK installs over the previous one.
+        // It only signs the side-by-side ".debug" app; store releases use the private release key below.
+        create("tester") {
+            storeFile = file("trazo-test.keystore")
+            storePassword = "trazotest"
+            keyAlias = "trazotest"
+            keyPassword = "trazotest"
+        }
         val storeFile = signing("TRAZO_KEYSTORE_FILE")
         if (storeFile != null && rootProject.file(storeFile).exists()) {
             create("release") {
@@ -57,6 +65,7 @@ android {
 
     buildTypes {
         debug {
+            signingConfig = signingConfigs.getByName("tester")
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }
@@ -71,7 +80,7 @@ android {
             initWith(getByName("release"))
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-compact"
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("tester")
             matchingFallbacks += "release"
         }
     }

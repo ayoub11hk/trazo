@@ -164,6 +164,18 @@ class SocialRepository(private val backend: Backend, private val scope: Coroutin
         return r
     }
 
+    /** Search by user name (exact or prefix of 3+ characters); returns names and photos only. */
+    suspend fun findUsers(query: String): List<app.trazo.data.remote.FoundUser> =
+        backend.client().postgrest.rpc("find_users", buildJsonObject { put("p_query", query) })
+            .decodeList<app.trazo.data.remote.FoundUser>()
+
+    suspend fun sendRequestTo(userId: String): SendRequestResult {
+        val r = backend.client().postgrest.rpc("send_friend_request_to", buildJsonObject { put("p_user", userId) })
+            .decodeList<SendRequestResult>().first()
+        refresh()
+        return r
+    }
+
     suspend fun respond(requestId: String, accept: Boolean) {
         backend.client().postgrest.rpc("respond_friend_request", buildJsonObject {
             put("p_request", requestId); put("p_accept", accept)
