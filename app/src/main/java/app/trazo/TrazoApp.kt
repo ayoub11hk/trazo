@@ -16,6 +16,7 @@ import app.trazo.data.repo.TripRepository
 import app.trazo.data.repo.VehicleRepository
 import app.trazo.notify.Notifications
 import app.trazo.sync.SyncScheduler
+import app.trazo.tracking.ForegroundPublisher
 import app.trazo.tracking.TrackingController
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,7 +36,7 @@ class AppGraph(app: Application) {
     val social = SocialRepository(backend, appScope)
     val trails = LiveTrailsRepository(backend, appScope)
     val live = LiveRepository(backend, db.friendCache(), appScope, json, trails)
-    val foregroundPublisher = app.trazo.tracking.ForegroundPublisher(this)
+    val foregroundPublisher = ForegroundPublisher(this)
     val trips = TripRepository(db.trips(), db.points(), backend, json)
     val vehicles = VehicleRepository(db.vehicles(), backend)
     val convoys = ConvoyRepository(backend)
