@@ -16,6 +16,7 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.tasks.await
 
 /** A source of raw fixes whose request parameters can change while running. */
 interface LocationSource {
@@ -25,6 +26,18 @@ interface LocationSource {
     val name: String
 
     companion object {
+        /** The position the phone already knows (may be minutes old); null without permission or history. */
+        @SuppressLint("MissingPermission")
+        suspend fun lastKnown(ctx: Context): LocationSample? = runCatching {
+            if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(ctx) == ConnectionResult.SUCCESS) {
+                LocationServices.getFusedLocationProviderClient(ctx).lastLocation.await()?.toSample()
+            } else {
+                val lm = ctx.getSystemService(Context.LOCATION_SERVICE) as LocationManager
+                listOf(LocationManager.GPS_PROVIDER, LocationManager.NETWORK_PROVIDER)
+                    .mapNotNull { lm.getLastKnownLocation(it) }.maxByOrNull { it.time }?.toSample()
+            }
+        }.getOrNull()
+
         fun best(ctx: Context): LocationSource =
             if (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(ctx) == ConnectionResult.SUCCESS) {
                 FusedSource(ctx)

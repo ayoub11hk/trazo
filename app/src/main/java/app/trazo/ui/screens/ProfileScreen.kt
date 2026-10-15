@@ -100,10 +100,15 @@ fun ProfileScreen(graph: AppGraph, nav: NavController) {
                 Spacer(Modifier.width(16.dp))
                 Column(Modifier.weight(1f)) {
                     Text(profile?.displayName ?: "…", style = MaterialTheme.typography.headlineSmall)
+                    Text(profile?.username?.let { "@$it" } ?: "Sin nombre de usuario", style = MaterialTheme.typography.bodyMedium,
+                        color = if (profile?.username != null) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant)
+                    profile?.bio?.let { Text(it, style = MaterialTheme.typography.bodySmall) }
                     Text((auth as? app.trazo.data.repo.AuthState.SignedIn)?.email ?: "", style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant)
                     Row {
-                        TextButton({ dialog = "name" }) { Text("Cambiar nombre") }
+                        TextButton({ dialog = "name" }) { Text("Nombre") }
+                        TextButton({ dialog = "username" }) { Text("Usuario") }
+                        TextButton({ dialog = "bio" }) { Text("Presentación") }
                         TextButton({ picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)) }) { Text("Foto") }
                     }
                 }
@@ -275,6 +280,16 @@ fun ProfileScreen(graph: AppGraph, nav: NavController) {
         "name" -> TextInputDialog("Tu nombre", "Nombre", profile?.displayName ?: "", onDismiss = { dialog = null }) {
             runner.run { graph.profile.updateDisplayName(it) }
         }
+        "username" -> TextInputDialog(
+            "Nombre de usuario", "usuario", profile?.username ?: "", maxLength = 20,
+            body = "Tus amigos podrán buscarte con él. De 3 a 20 letras minúsculas, números, puntos o guiones bajos. Nadie verá tu ubicación por encontrarte: solo cuando aceptes su solicitud.",
+            onDismiss = { dialog = null },
+        ) { runner.run { graph.profile.updateIdentity(username = it, bio = null); toast(ctx, "Nombre de usuario guardado") } }
+        "bio" -> TextInputDialog(
+            "Presentación", "Una frase sobre ti", profile?.bio ?: "", maxLength = 140,
+            body = "Solo la ven tus amigos y las personas de tus grupos y convoyes.",
+            onDismiss = { dialog = null },
+        ) { runner.run { graph.profile.updateIdentity(username = null, bio = it) } }
         "osrm" -> TextInputDialog(
             "Servidor de ajuste a carreteras", "URL (https://…)", s?.mapMatchingUrl ?: "", maxLength = 200,
             body = "El servidor público de demostración de OSRM tiene límites de uso. Puedes usar uno propio.",

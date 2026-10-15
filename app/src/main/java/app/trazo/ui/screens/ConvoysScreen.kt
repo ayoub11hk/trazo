@@ -169,10 +169,9 @@ fun ConvoyDetailScreen(graph: AppGraph, nav: NavController, convoyId: String) {
         }
         Column(Modifier.fillMaxSize().padding(pad).verticalScroll(rememberScrollState())) {
             if (info.active) Box(Modifier.fillMaxWidth().height(280.dp)) {
-                val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.DARK
+                val style = settings?.let { mapStyleNow(it.mapStyleDay, it.mapStyleNight, it.autoNightMap) } ?: MapStyle.TRAZO
                 TrazoMapView(style.url, Modifier.fillMaxSize()) { h ->
                     MapLayers.ensureMarkers(h.style, "convoy", 0xFFFFFFFF.toInt(), Brand.Graphite900.toArgb(), Brand.Signal.toArgb(), cluster = false)
-                    h.enableMyLocation(false)
                     handle = h
                 }
             }

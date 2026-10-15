@@ -20,9 +20,9 @@ object VehicleMarkers {
 
     fun key(body: BodyType, colorHex: String) = "veh-${body.name}-${colorHex.removePrefix("#")}"
 
-    fun bitmap(body: BodyType, colorHex: String, density: Float): Bitmap = cache.getOrPut(key(body, colorHex) + density) {
+    fun bitmap(body: BodyType, colorHex: String, density: Float, scale: Float = 1f): Bitmap = cache.getOrPut(key(body, colorHex) + density + "x" + scale) {
         val color = runCatching { Color.parseColor(colorHex) }.getOrDefault(Color.LTGRAY)
-        val pxPerM = 9f * density
+        val pxPerM = 9f * density * scale
         val lw = (body.widthM * pxPerM).roundToInt().coerceAtLeast(12)
         val lh = (body.lengthM * pxPerM).roundToInt().coerceAtLeast(20)
         val pad = (6 * density).roundToInt()

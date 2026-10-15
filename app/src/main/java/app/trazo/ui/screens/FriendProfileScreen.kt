@@ -77,6 +77,7 @@ fun FriendProfileScreen(graph: AppGraph, nav: NavController, friendId: String) {
                     Spacer(Modifier.width(16.dp))
                     Column(Modifier.weight(1f)) {
                         Text(profile.displayName, style = MaterialTheme.typography.headlineSmall)
+                        profile.username?.let { Text("@$it", style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.primary) }
                         val live = positions[friendId]
                         val t = live?.let { isoToMillis(it.recordedAt) ?: isoToMillis(it.updatedAt) }
                         val now = System.currentTimeMillis()
@@ -85,6 +86,14 @@ fun FriendProfileScreen(graph: AppGraph, nav: NavController, friendId: String) {
                         FreshnessBadge(fresh, t?.let { LocationFreshness.ageLabel(it, now) } ?: "no comparte su ubicación contigo")
                     }
                 }
+                profile.bio?.let {
+                    Text(it, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(bottom = 8.dp))
+                }
+                if (friend != null) Text(
+                    if (friend.theirs?.shareLocation == true) "Comparte su ubicación en directo contigo." else "No comparte su ubicación en directo contigo.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(bottom = 8.dp),
+                )
                 Button({ nav.navigate("map?focus=$friendId") }, Modifier.fillMaxWidth(), enabled = positions[friendId]?.lat != null) {
                     Icon(Icons.Filled.Map, null); Spacer(Modifier.width(8.dp)); Text("Ver en el mapa")
                 }

@@ -18,7 +18,12 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 
 enum class ThemeMode { SYSTEM, DARK, LIGHT }
 
+/**
+ * Map looks. All use OpenFreeMap (OpenStreetMap data, no API key, no usage fees; attribution
+ * shown on the map). TRAZO is Trazo's own dark style, bundled in the app (assets/styles).
+ */
 enum class MapStyle(val label: String, val url: String, val dark: Boolean) {
+    TRAZO("Trazo Noche", "asset://styles/trazo-night.json", true),
     LIBERTY("Detallado", "https://tiles.openfreemap.org/styles/liberty", false),
     BRIGHT("Brillante", "https://tiles.openfreemap.org/styles/bright", false),
     POSITRON("Claro", "https://tiles.openfreemap.org/styles/positron", false),
@@ -48,9 +53,15 @@ data class AppSettings(
     val snapToRoads: Boolean,
     val mapMatchingUrl: String,
     val defaultVehicleId: String?,
+    /** Last place the map was looking at, to reopen there when no fix is available yet. */
+    val lastCamera: SavedCamera?,
+    /** People whose live trail I have hidden on my map. */
+    val hiddenTrails: Set<String>,
 ) {
     val backendConfigured: Boolean get() = supabaseUrl.startsWith("https://") && supabaseAnonKey.isNotBlank()
 }
+
+data class SavedCamera(val lat: Double, val lng: Double, val zoom: Double)
 
 class SettingsRepository(private val context: Context) {
     private object K {
@@ -58,9 +69,12 @@ class SettingsRepository(private val context: Context) {
         val key = stringPreferencesKey("supabase_key")
         val onboarding = booleanPreferencesKey("onboarding_done")
         val theme = stringPreferencesKey("theme")
-        val styleDay = stringPreferencesKey("map_style_day")
-        val styleNight = stringPreferencesKey("map_style_night")
-        val autoNight = booleanPreferencesKey("auto_night_map")
+        // v2: the redesign makes Trazo's dark style the default, also for people who had picked a style before.
+        val styleDay = stringPreferencesKey("map_style_day_v2")
+        val styleNight = stringPreferencesKey("map_style_night_v2")
+        val autoNight = booleanPreferencesKey("auto_night_map_v2")
+        val camera = stringPreferencesKey("last_camera")
+        val hiddenTrails = androidx.datastore.preferences.core.stringSetPreferencesKey("hidden_trails")
         val autoDetect = booleanPreferencesKey("auto_detect")
         val sensitivity = stringPreferencesKey("sensitivity")
         val continuous = booleanPreferencesKey("continuous")
@@ -80,9 +94,9 @@ class SettingsRepository(private val context: Context) {
             supabaseAnonKey = p[K.key] ?: BuildConfig.SUPABASE_ANON_KEY,
             onboardingDone = p[K.onboarding] ?: false,
             themeMode = p[K.theme]?.let { runCatching { ThemeMode.valueOf(it) }.getOrNull() } ?: ThemeMode.DARK,
-            mapStyleDay = p[K.styleDay]?.let { runCatching { MapStyle.valueOf(it) }.getOrNull() } ?: MapStyle.LIBERTY,
-            mapStyleNight = p[K.styleNight]?.let { runCatching { MapStyle.valueOf(it) }.getOrNull() } ?: MapStyle.DARK,
-            autoNightMap = p[K.autoNight] ?: true,
+            mapStyleDay = p[K.styleDay]?.let { runCatching { MapStyle.valueOf(it) }.getOrNull() } ?: MapStyle.TRAZO,
+            mapStyleNight = p[K.styleNight]?.let { runCatching { MapStyle.valueOf(it) }.getOrNull() } ?: MapStyle.TRAZO,
+            autoNightMap = p[K.autoNight] ?: false,
             autoDetectTrips = p[K.autoDetect] ?: true,
             sensitivity = p[K.sensitivity]?.let { runCatching { Sensitivity.valueOf(it) }.getOrNull() } ?: Sensitivity.NORMAL,
             continuousMonitoring = p[K.continuous] ?: false,
@@ -94,6 +108,9 @@ class SettingsRepository(private val context: Context) {
             snapToRoads = p[K.snap] ?: false,
             mapMatchingUrl = p[K.matchUrl] ?: BuildConfig.MAP_MATCHING_URL,
             defaultVehicleId = p[K.vehicle],
+            lastCamera = p[K.camera]?.split(",")?.mapNotNull { it.toDoubleOrNull() }?.takeIf { it.size == 3 }
+                ?.let { (a, b, z) -> SavedCamera(a, b, z) },
+            hiddenTrails = p[K.hiddenTrails] ?: emptySet(),
         )
     }
 
@@ -118,6 +135,11 @@ class SettingsRepository(private val context: Context) {
     }
     suspend fun setSnapToRoads(v: Boolean) = context.dataStore.edit { it[K.snap] = v }
     suspend fun setMapMatchingUrl(v: String) = context.dataStore.edit { it[K.matchUrl] = v.trim().trimEnd('/') }
+    suspend fun setLastCamera(c: SavedCamera) = context.dataStore.edit { it[K.camera] = "${c.lat},${c.lng},${c.zoom}" }
+    suspend fun setTrailHidden(userId: String, hidden: Boolean) = context.dataStore.edit {
+        val cur = it[K.hiddenTrails] ?: emptySet()
+        it[K.hiddenTrails] = if (hidden) cur + userId else cur - userId
+    }
     suspend fun setDefaultVehicle(id: String?) = context.dataStore.edit {
         if (id == null) it.remove(K.vehicle) else it[K.vehicle] = id
     }

@@ -257,7 +257,7 @@ class TrackingService : LifecycleService() {
                     }
                 }
                 if (p.seq % 30 == 0) graph.trips.refreshRecordingSummary(id)
-                if (p.seq % 120 == 0) graph.sync.requestSync()
+                if (p.seq % 60 == 0) graph.sync.requestSync() // keeps friends' live-trail backlog about a minute behind
             }
         }
 
